@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // creation of element
+    let header1A = document.createElement("h1");
+    let paragraph1 = document.createElement("p");
+    let image1 = document.createElement("img");
+    const brLine = document.createElement("br");
+    let button1 = document.createElement("button");
+    let section1 = document.createElement("section");
+    let ul = document.createElement("ul");
+    let li = document.createElement("li");
+    let form = document.createElement("form");
+    let title = document.createElement("label");
+    let text1 = document.createElement("p");
+    let boxName = document.createElement("input");
+    let text2 = document.createElement("p");
+    let boxName2 = document.createElement("input");
+    let text3 = document.createElement("p");
+    let ageCat = document.createElement("input");
+    let checkBox = document.createElement("input");
+    let buttonSub = document.createElement("button");
+    let header2 = document.createElement("h1");
+
+    // creation of elements
+    document.body.appendChild(header1A);
+    document.body.appendChild(paragraph1);
+    document.body.appendChild(image1);
+    document.body.appendChild(brLine);
+    document.body.appendChild(button1);
+    document.body.appendChild(section1);
+    document.body.appendChild(ul);
+    document.body.appendChild(li);
+    document.body.appendChild(header2);
+
+    // Adding content between open and closing tags
+    header1A.innerHTML = "Minou";
+    paragraph1.innerHTML =
+      "The <b>cat</b> is a <i>domestic</i> species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is commonly referred to as the domestic cat or house cat to distinguish it from the wild members of the family.";
+    button1.innerHTML = "Click me !!!";
+    text1.innerHTML = "What is your Cat's name?";
+    text2.innerHTML = "What is your name?";
+    text3.innerHTML = "How old is your cat";
+    // path to images
+    image1.src = "/cat.png";
+
+    // adding styles to element
+    image1.style.borderRadius = "20px";
+    button1.style.backgroundColor = "cyan";
+
+    function createInputForm() {
+      form.setAttribute("method", "post");
+      // TODO add the action
+      form.setAttribute("action", "");
+      form.setAttribute("style", " width:300px; margin: 0px");
+      form.appendChild(title);
+      form.appendChild(text1);
+      form.appendChild(boxName);
+      form.appendChild(text2);
+      form.appendChild(boxName2);
+      form.appendChild(text3);
+      form.appendChild(ageCat);
+      form.appendChild(checkBox);
+      form.appendChild(buttonSub);
+
+      boxName.type = "text";
+      boxName.placeholder = "Cat Name";
+      boxName.style = "";
+      boxName.id = "catName";
+      boxName.className = "inputToValid";
+      boxName2.type = "text";
+      boxName2.placeholder = "Name";
+      boxName2.style = "";
+      boxName2.id = "parentName";
+      boxName2.className = "inputToValid";
+      ageCat.type = "text";
+      ageCat.placeholder = "Age";
+      ageCat.style = "";
+      ageCat.id = "ageCat";
+      ageCat.className = "inputToValid";
+      checkBox.type = "checkbox";
+      checkBox.labels = "Male";
+      buttonSub.id = "buttonSub";
+      buttonSub.type = "button";
+      buttonSub.value = "Submit";
+      buttonSub.style.backgroundColor = "pink";
+
+      title.innerHTML = "<h3>Told us about your cat :) !!</h3>";
+      buttonSub.innerHTML = "Submit";
+
+      section1.appendChild(form);
+    }
+
+    function getInput() {
+      let input = document.getElementsByClassName("inputToValid").value;
+      return input;
+    }
+
+    function validFormlength(input) {
+      let valid = false;
+      if (input.length >= 2 && input.length <= 15) {
+        console.log("The input length is valid!");
+        valid = true;
+      } else {
+        console.log("The input length is invalid!");
+      }
+      return valid;
+    }
+
+    function validCapitalLetter(input) {
+      const maximumCapitalLetters = 5;
+      let capitalLetterFound = "";
+      let numberOfCapitalLetters = 0;
+      let isFound = false;
+      for (let i = 0; i < input.length; i++) {
+        if (
+          input.charAt(i) == input.charAt(i).toUpperCase() &&
+          input.charAt(i).match(/[a-z]/i)
+        ) {
+          capitalLetterFound = input.charAt(i);
+          console.log("Capital letter found is: " + capitalLetterFound);
+          numberOfCapitalLetters++;
+        }
+      }
+      if (
+        numberOfCapitalLetters > 0 &&
+        numberOfCapitalLetters <= maximumCapitalLetters
+      ) {
+        console.log(
+          "There's " + numberOfCapitalLetters + " capital letters found!"
+        );
+        console.log(
+          "The name has at most one capital letter and maximum " +
+            maximumCapitalLetters +
+            "!"
+        );
+      } else {
+        console.log(
+          "There's " + numberOfCapitalLetters + " capital letters found!"
+        );
+        console.log(
+          "The name needs to have at most one capital letter and maximum " +
+            maximumCapitalLetters +
+            "!"
+        );
+      }
+      return isFound;
+    }
+
+    //console.log(validCapitalLetter("all letters here are lowercase"));
+    //console.log(validCapitalLetter("We Have some uppercase Letters in this One."));
+
+    button1.addEventListener("click", () => {
+      createInputForm();
+    });
+
+    buttonSub.addEventListener("click", () => {
+      let input = getInput();
+      validFormlength(input);
+      validCapitalLetter(input);
+      // TODO more validations function calls
+      console.log(input);
+      const inputAsJson = JSON.stringify(input);
+    });
+    //let list = document.querySelector('buttonSub');
+  </script>
+</html>
