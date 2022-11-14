@@ -13,6 +13,8 @@ app.listen(port, () => {
 
 app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname + "/index.html"));
+  // // response.set({'Content-Type': 'image/jpg'});
+  // response.sendFile(path.join(__dirname + "/images/cat-upside-down.jpg"));
 });
 
 app.post("/", (request, response) => {

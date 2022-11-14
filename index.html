@@ -9,77 +9,75 @@
   <body></body>
   <script>
     // creation of element
-    let header1A = document.createElement("h1");
-    let paragraph1 = document.createElement("p");
-    let image1 = document.createElement("img");
-    const brLine = document.createElement("br");
-    let button1 = document.createElement("button");
-    let section1 = document.createElement("section");
-    let ul = document.createElement("ul");
-    let li = document.createElement("li");
-    let form = document.createElement("form");
-    let title = document.createElement("label");
-    let text1 = document.createElement("p");
-    let boxName = document.createElement("input");
-    let text2 = document.createElement("p");
-    let boxName2 = document.createElement("input");
-    let text3 = document.createElement("p");
-    let ageCat = document.createElement("input");
-    let checkBox = document.createElement("input");
-    let buttonSub = document.createElement("button");
-    let header2 = document.createElement("h1");
+    const mainTitle = document.createElement("h1");
+    const paragraphIntroduction = document.createElement("p");
+    const imageBabyRedCatLayingUpsideDown = document.createElement("img");
+    const breakLine1 = document.createElement("br");
+    const buttonCreateForm = document.createElement("button");
+    const sectionForm = document.createElement("section");
+    const form = document.createElement("form");
+    const formLabel = document.createElement("label");
+    const textCatName = document.createElement("p");
+    const inputBoxCatName = document.createElement("input");
+    const textPersonName = document.createElement("p");
+    const inputBoxPersonName = document.createElement("input");
+    const textCatAge = document.createElement("p");
+    const ageCat = document.createElement("input");
+    const checkBox = document.createElement("input");
+    const buttonSub = document.createElement("button");
+    const headerTextForm = document.createElement("h2");
 
     // creation of elements
-    document.body.appendChild(header1A);
-    document.body.appendChild(paragraph1);
-    document.body.appendChild(image1);
-    document.body.appendChild(brLine);
-    document.body.appendChild(button1);
-    document.body.appendChild(section1);
-    document.body.appendChild(ul);
-    document.body.appendChild(li);
-    document.body.appendChild(header2);
+    document.body.appendChild(mainTitle);
+    document.body.appendChild(paragraphIntroduction);
+    document.body.appendChild(imageBabyRedCatLayingUpsideDown);
+    document.body.appendChild(breakLine1);
+    document.body.appendChild(buttonCreateForm);
+    document.body.appendChild(headerTextForm);
+    document.body.appendChild(sectionForm);
 
     // Adding content between open and closing tags
-    header1A.innerHTML = "Minou";
-    paragraph1.innerHTML =
+    mainTitle.innerHTML = "Minou";
+    paragraphIntroduction.innerHTML =
       "The <b>cat</b> is a <i>domestic</i> species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is commonly referred to as the domestic cat or house cat to distinguish it from the wild members of the family.";
-    button1.innerHTML = "Click me !!!";
-    text1.innerHTML = "What is your Cat's name?";
-    text2.innerHTML = "What is your name?";
-    text3.innerHTML = "How old is your cat";
+      buttonCreateForm.innerHTML = "Click me !!!";
+    textCatName.innerHTML = "What is your Cat's name?";
+    textPersonName.innerHTML = "What is your name?";
+    textCatAge.innerHTML = "How old is your cat";
     // path to images
-    image1.src = "/cat.png";
+    imageBabyRedCatLayingUpsideDown.src = "https://i.pinimg.com/originals/eb/63/78/eb63787ee9aed3d01f4d871738cea9bb.jpg";
 
     // adding styles to element
-    image1.style.borderRadius = "20px";
-    button1.style.backgroundColor = "cyan";
+    imageBabyRedCatLayingUpsideDown.style.borderRadius = "20px";
+    buttonCreateForm.style.backgroundColor = "cyan";
 
     function createInputForm() {
-      form.setAttribute("method", "post");
-      // TODO add the action
-      form.setAttribute("action", "");
-      form.setAttribute("style", " width:300px; margin: 0px");
-      form.appendChild(title);
-      form.appendChild(text1);
-      form.appendChild(boxName);
-      form.appendChild(text2);
-      form.appendChild(boxName2);
-      form.appendChild(text3);
+      // add child to form
+      sectionForm.appendChild(form);
+      form.appendChild(formLabel);
+      form.appendChild(textCatName);
+      form.appendChild(inputBoxCatName);
+      form.appendChild(textPersonName);
+      form.appendChild(inputBoxPersonName);
+      form.appendChild(textCatAge);
       form.appendChild(ageCat);
       form.appendChild(checkBox);
       form.appendChild(buttonSub);
-
-      boxName.type = "text";
-      boxName.placeholder = "Cat Name";
-      boxName.style = "";
-      boxName.id = "catName";
-      boxName.className = "inputToValid";
-      boxName2.type = "text";
-      boxName2.placeholder = "Name";
-      boxName2.style = "";
-      boxName2.id = "parentName";
-      boxName2.className = "inputToValid";
+      // set attributes values
+      form.id = "myForm"
+      form.method = "post";
+      form.action = "";
+      form.style = "width:300px; margin: 0px";
+      inputBoxCatName.type = "text";
+      inputBoxCatName.placeholder = "Cat Name";
+      inputBoxCatName.style = "";
+      inputBoxCatName.id = "catName";
+      inputBoxCatName.className = "inputToValid";
+      inputBoxPersonName.type = "text";
+      inputBoxPersonName.placeholder = "Name";
+      inputBoxPersonName.style = "";
+      inputBoxPersonName.id = "parentName";
+      inputBoxPersonName.className = "inputToValid";
       ageCat.type = "text";
       ageCat.placeholder = "Age";
       ageCat.style = "";
@@ -91,17 +89,15 @@
       buttonSub.type = "button";
       buttonSub.value = "Submit";
       buttonSub.style.backgroundColor = "pink";
-
-      title.innerHTML = "<h3>Told us about your cat :) !!</h3>";
       buttonSub.innerHTML = "Submit";
-
-      section1.appendChild(form);
+      headerTextForm.innerHTML = "Told us about your cat :) !!";
     }
 
-    function getInput() {
-      let input = document.getElementsByClassName("inputToValid").value;
-      return input;
-    }
+    // function getInput() {
+    //   let input = document.getElementById("myForm").value;
+    //   console.log(input);
+    //   return input;
+    // }
 
     function validFormlength(input) {
       let valid = false;
@@ -157,11 +153,11 @@
     //console.log(validCapitalLetter("all letters here are lowercase"));
     //console.log(validCapitalLetter("We Have some uppercase Letters in this One."));
 
-    button1.addEventListener("click", () => {
+    buttonCreateForm.addEventListener("click", () => {
       createInputForm();
     });
 
-    buttonSub.addEventListener("click", () => {
+    buttonSub.addEventListener("onSubmit", () => {
       let input = getInput();
       validFormlength(input);
       validCapitalLetter(input);
