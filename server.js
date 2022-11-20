@@ -5,20 +5,23 @@ const path = require("path");
 const express = require("express");
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-// const hostname = "127.0.0.1";
-const port = 8000;
 var app = express();
 app.use(express.json());
 app.use(express.urlencoded());
+
+const port = 8000;
 //------------------------------------------------------------------------------
 // INITIALIZE DATABASE WITH SQLITE3
 //------------------------------------------------------------------------------
-let db = new sqlite3.Database(path.join(__dirname + "/data/dataBase.db"), (err) => {
-  if (err) {
-    return console.error(err.message);
+let dataBase = new sqlite3.Database(
+  path.join(__dirname + "/data/dataBase.db"),
+  (error) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    console.log("Connected to the in-memory SQlite database.");
   }
-  console.log("Connected to the in-memory SQlite database.");
-});
+);
 //------------------------------------------------------------------------------
 // DECLARATIONS OF FUNCTIONS
 //------------------------------------------------------------------------------
