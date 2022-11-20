@@ -11,31 +11,49 @@ app.use(express.urlencoded());
 
 const port = 8000;
 //------------------------------------------------------------------------------
-// INITIALIZE DATABASE WITH SQLITE3
+// DATABASE FUNCTIONS
 //------------------------------------------------------------------------------
-let dataBase = new sqlite3.Database(
-  path.join(__dirname + "/data/dataBase.db"),
-  (error) => {
-    if (error) {
-      return console.error(error.message);
+// Initialize dataBase connection on dataBase.db with SQLite3
+function openDataBaseConnection() {
+  let dataBase = new sqlite3.Database(
+    path.join(__dirname + "/data/dataBase.db"),
+    "OPEN_READWRITE | OPEN_CREATE",
+    (error) => {
+      if (error) {
+        return console.error(error.message);
+      }
+      console.log("Connected to the dataBase.db SQlite database.");
     }
-    console.log("Connected to the in-memory SQlite database.");
-  }
-);
+  );
+  return dataBase;
+}
+
+// Close the connection on dataBase.db with SQLite3
+function closeDataBaseConnection(dataBase) {
+  dataBase.close((error) => {
+    if (error) {
+      console.error(error.message);
+    }
+    console.log("Close the database connection.");
+  });
+}
+
+function insertIntoDataBaseTable(dataBase, newObjectData) {
+  dataBase.run(
+    `INSERT INTO Clients(catName, personName, catAge) VALUES(?,?,?)`,
+    [newObjectData.catName, newObjectData.personName, newObjectData.catAge]
+  );
+}
+
+function createDataBaseTable(dataBase) {
+  dataBase.run(
+    "CREATE TABLE IF NOT EXISTS Clients(id INTEGER PRIMARY KEY AUTOINCREMENT, catName text, personName text, catAge integer)"
+  );
+}
 //------------------------------------------------------------------------------
 // DECLARATIONS OF FUNCTIONS
 //------------------------------------------------------------------------------
-async function writeToFile(newObjectData) {
-  const dataAsString = await fs.readFile(
-    path.join(__dirname + "/data/data.json")
-  );
-  const dataAsObject = JSON.parse(data);
-  dataAsJson.push(newObjectData);
-  await fs.writeFile(
-    path.join(__dirname + "/data/data.json"),
-    JSON.stringify(dataAsJson)
-  );
-}
+//no functions here for now
 //------------------------------------------------------------------------------
 // INITIALIZING THE LISTEN ON PORT WITH EXPRESS APP
 //------------------------------------------------------------------------------
@@ -57,5 +75,7 @@ app.post("/", (request, response) => {
     "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
   );
   let newObjectData = request.body;
-  writeToFile(newObjectData);
+  let dataBase = openDataBaseConnection();
+  createDataBaseTable(dataBase);
+  insertIntoDataBaseTable(dataBase, newObjectData);
 });
