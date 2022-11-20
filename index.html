@@ -4,15 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Grumpy Life</title>
+    <link
+      rel="icon"
+      href="http://orig14.deviantart.net/7b01/f/2013/196/6/8/grumpy_cat_by_lord_iluvatar-d6dj8g3.png"
+    />
   </head>
   <body></body>
   <script>
-    // creation of element
+    //--------------------------------------------------------------------------
+    // CREATION OF ELEMENTS IN THE DOM
+    //--------------------------------------------------------------------------
     const mainTitle = document.createElement("h1");
     const paragraphIntroduction = document.createElement("p");
-    const imageBabyRedCatLayingUpsideDown = document.createElement("img");
+    const grumpyCatWithHat = document.createElement("img");
     const breakLine1 = document.createElement("br");
+    const breakLine2 = document.createElement("br");
     const buttonCreateForm = document.createElement("button");
     const sectionForm = document.createElement("section");
     const form = document.createElement("form");
@@ -22,35 +29,43 @@
     const textPersonName = document.createElement("p");
     const inputBoxPersonName = document.createElement("input");
     const textCatAge = document.createElement("p");
-    const ageCat = document.createElement("input");
-    const checkBox = document.createElement("input");
+    const inputCatAge = document.createElement("input");
+    // const checkBox = document.createElement("input");
     const buttonSub = document.createElement("button");
     const headerTextForm = document.createElement("h2");
 
     // creation of elements
     document.body.appendChild(mainTitle);
     document.body.appendChild(paragraphIntroduction);
-    document.body.appendChild(imageBabyRedCatLayingUpsideDown);
+    document.body.appendChild(grumpyCatWithHat);
     document.body.appendChild(breakLine1);
     document.body.appendChild(buttonCreateForm);
     document.body.appendChild(headerTextForm);
     document.body.appendChild(sectionForm);
-
+    //--------------------------------------------------------------------------
+    // ADDING CONTENT IN ATTRIBUTS & INNER HTML
+    //--------------------------------------------------------------------------
     // Adding content between open and closing tags
-    mainTitle.innerHTML = "Minou";
+    mainTitle.innerHTML = "Grumpy Life";
     paragraphIntroduction.innerHTML =
-      "The <b>cat</b> is a <i>domestic</i> species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is commonly referred to as the domestic cat or house cat to distinguish it from the wild members of the family.";
-      buttonCreateForm.innerHTML = "Click me !!!";
-    textCatName.innerHTML = "What is your Cat's name?";
+      "Let's get <b>grumpy</b> with us! Bring <b>grumpyness</b> in your family and make your life worth living!";
+    buttonCreateForm.innerHTML = "Subscribe!";
+    textCatName.innerHTML = "What is your cat's name?";
     textPersonName.innerHTML = "What is your name?";
     textCatAge.innerHTML = "How old is your cat";
     // path to images
-    imageBabyRedCatLayingUpsideDown.src = "https://i.pinimg.com/originals/eb/63/78/eb63787ee9aed3d01f4d871738cea9bb.jpg";
-
-    // adding styles to element
-    imageBabyRedCatLayingUpsideDown.style.borderRadius = "20px";
+    grumpyCatWithHat.src =
+      "https://i.kinja-img.com/gawker-media/image/upload/t_original/e0vnqjuayk153fmusl5x.jpg";
+    //--------------------------------------------------------------------------
+    // ADDING STYLE (CSS) TO ELEMENT
+    //--------------------------------------------------------------------------
+    grumpyCatWithHat.style.width = "480px";
+    grumpyCatWithHat.style.height = "320px";
+    grumpyCatWithHat.style.borderRadius = "20px";
     buttonCreateForm.style.backgroundColor = "cyan";
-
+    //--------------------------------------------------------------------------
+    // FUNCTIONS DECLARATIONS
+    //--------------------------------------------------------------------------
     function createInputForm() {
       // add child to form
       sectionForm.appendChild(form);
@@ -60,14 +75,15 @@
       form.appendChild(textPersonName);
       form.appendChild(inputBoxPersonName);
       form.appendChild(textCatAge);
-      form.appendChild(ageCat);
-      form.appendChild(checkBox);
+      form.appendChild(inputCatAge);
+      form.appendChild(breakLine2);
       form.appendChild(buttonSub);
       // set attributes values
-      form.id = "myForm"
+      form.id = "myForm";
       form.method = "post";
       form.action = "";
-      form.style = "width:300px; margin: 0px";
+      form.style.width = "300px";
+      form.style.margin = "0px";
       inputBoxCatName.type = "text";
       inputBoxCatName.placeholder = "Cat Name";
       inputBoxCatName.style = "";
@@ -78,39 +94,58 @@
       inputBoxPersonName.style = "";
       inputBoxPersonName.id = "parentName";
       inputBoxPersonName.className = "inputToValid";
-      ageCat.type = "text";
-      ageCat.placeholder = "Age";
-      ageCat.style = "";
-      ageCat.id = "ageCat";
-      ageCat.className = "inputToValid";
-      checkBox.type = "checkbox";
-      checkBox.labels = "Male";
+      inputCatAge.type = "text";
+      inputCatAge.placeholder = "Age";
+      inputCatAge.style = "";
+      inputCatAge.id = "ageCat";
+      inputCatAge.className = "inputToValid";
       buttonSub.id = "buttonSub";
       buttonSub.type = "button";
       buttonSub.value = "Submit";
       buttonSub.style.backgroundColor = "pink";
       buttonSub.innerHTML = "Submit";
-      headerTextForm.innerHTML = "Told us about your cat :) !!";
+      headerTextForm.innerHTML =
+        "Tell us about your cat, how grumpy is it? 🐈‍";
     }
 
-    // function getInput() {
-    //   let input = document.getElementById("myForm").value;
-    //   console.log(input);
-    //   return input;
-    // }
+    function getInputs() {
+      const inputNodes = document.getElementsByTagName("input");
+      let inputsValue = { catName: "", personName: "", catAge: "" };
+      for (let i = 0; i < inputNodes.length; i++) {
+        if (inputNodes[i].type.toLowerCase() == "text") {
+          console.log(inputNodes[i].value);
+          if (i == 0) {
+            inputsValue.catName = inputNodes[i].value;
+          } else if (i == 1) {
+            inputsValue.personName = inputNodes[i].value;
+          } else if (i == 2) {
+            inputsValue.catAge = inputNodes[i].value;
+          }
+        }
+      }
+      console.log(inputsValue);
+      return inputsValue;
+    }
 
-    function validFormlength(input) {
+    function isValidFormlength(inputsValueObject) {
       let valid = false;
-      if (input.length >= 2 && input.length <= 15) {
-        console.log("The input length is valid!");
+      if (
+        inputsValueObject.catName.length >= 2 &&
+        inputsValueObject.catName.length <= 15 &&
+        inputsValueObject.personName.length >= 2 &&
+        inputsValueObject.personName.length <= 15 &&
+        inputsValueObject.catAge.length >= 1 &&
+        inputsValueObject.catAge.length <= 2
+      ) {
+        console.log("The inputs length is valid!");
         valid = true;
       } else {
-        console.log("The input length is invalid!");
+        console.log("The inputs length is invalid!");
       }
       return valid;
     }
 
-    function validCapitalLetter(input) {
+    function isValidCapitalLetter(input) {
       const maximumCapitalLetters = 5;
       let capitalLetterFound = "";
       let numberOfCapitalLetters = 0;
@@ -137,6 +172,7 @@
             maximumCapitalLetters +
             "!"
         );
+        isFound = true;
       } else {
         console.log(
           "There's " + numberOfCapitalLetters + " capital letters found!"
@@ -150,21 +186,45 @@
       return isFound;
     }
 
-    //console.log(validCapitalLetter("all letters here are lowercase"));
-    //console.log(validCapitalLetter("We Have some uppercase Letters in this One."));
+    function sendData(data) {
+      fetch("/", {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+    }
 
+    function isValidInputs(inputsValueObject) {
+      let isValid = false;
+      if (
+        isValidFormlength(inputsValueObject) &&
+        isValidCapitalLetter(inputsValueObject.catName) &&
+        isValidCapitalLetter(inputsValueObject.personName)
+      ) {
+        isValid = true;
+      }
+      return isValid;
+    }
+    //--------------------------------------------------------------------------
+    // EVENT LISTENERS
+    //--------------------------------------------------------------------------
     buttonCreateForm.addEventListener("click", () => {
       createInputForm();
     });
 
-    buttonSub.addEventListener("onSubmit", () => {
-      let input = getInput();
-      validFormlength(input);
-      validCapitalLetter(input);
-      // TODO more validations function calls
-      console.log(input);
-      const inputAsJson = JSON.stringify(input);
+    buttonSub.addEventListener("click", () => {
+      let inputsValueObject = getInputs();
+      if (isValidInputs(inputsValueObject)) {
+        console.log("My inputs as object is:", inputsValueObject);
+        sendData(inputsValueObject);
+      } else {
+        console.log("wrong inputs");
+      }
     });
-    //let list = document.querySelector('buttonSub');
   </script>
 </html>
