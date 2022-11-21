@@ -5,9 +5,9 @@ const path = require("path");
 const express = require("express");
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-var express = express();
-express.use(express.json());
-express.use(express.urlencoded());
+var app = express();
+app.use(express.json());
+app.use(express.urlencoded());
 
 const port = 8000;
 //------------------------------------------------------------------------------
@@ -82,22 +82,22 @@ function getCatAgeFromDataBase(dataBase) {
 //------------------------------------------------------------------------------
 //no functions here for now
 //------------------------------------------------------------------------------
-// INITIALIZING THE LISTEN ON PORT WITH EXPRESS
+// INITIALIZING THE LISTEN ON PORT WITH EXPRESS APP
 //------------------------------------------------------------------------------
-express.listen(port, () => {
+app.listen(port, () => {
   console.log("The API is now listening on port 8000 on localhost!");
 });
 //------------------------------------------------------------------------------
 // SERVICES FOR GET HTTP METHOD REQUESTS
 //------------------------------------------------------------------------------
-express.get("/", (request, response) => {
+app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname + "/index.html"));
   response.sendStatus(200);
 });
 //------------------------------------------------------------------------------
 // SERVICES FOR POST HTTP METHOD REQUESTS
 //------------------------------------------------------------------------------
-express.post("/", (request, response) => {
+app.post("/", (request, response) => {
   response.setHeader(
     "Access-Control-Allow-Headers",
     "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
