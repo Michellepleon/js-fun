@@ -28,7 +28,6 @@ function openDataBaseConnection() {
   return dataBase;
 }
 
-// Close the connection on dataBase.db with SQLite3
 function closeDataBaseConnection(dataBase) {
   dataBase.close((error) => {
     if (error) {
@@ -38,6 +37,12 @@ function closeDataBaseConnection(dataBase) {
   });
 }
 
+function createDataBaseTable(dataBase) {
+  dataBase.run(
+    "CREATE TABLE IF NOT EXISTS Clients(id INTEGER PRIMARY KEY AUTOINCREMENT, catName text, personName text, catAge integer)"
+  );
+}
+
 function insertIntoDataBaseTable(dataBase, newObjectData) {
   dataBase.run(
     `INSERT INTO Clients(catName, personName, catAge) VALUES(?,?,?)`,
@@ -45,10 +50,32 @@ function insertIntoDataBaseTable(dataBase, newObjectData) {
   );
 }
 
-function createDataBaseTable(dataBase) {
-  dataBase.run(
-    "CREATE TABLE IF NOT EXISTS Clients(id INTEGER PRIMARY KEY AUTOINCREMENT, catName text, personName text, catAge integer)"
-  );
+function getIdFromDataBase(dataBase) {
+  dataBase.each("SELECT * FROM Clients", function (error, row) {
+    if (error) return console.log(error.message);
+    console.log(row.id);
+  });
+}
+
+function getCatNameFromDataBase(dataBase) {
+  dataBase.each("SELECT * FROM Clients", function (error, row) {
+    if (error) return console.log(error.message);
+    console.log(row.catName);
+  });
+}
+
+function getPersonNameFromDataBase(dataBase) {
+  dataBase.each("SELECT * FROM Clients", function (error, row) {
+    if (error) return console.log(error.message);
+    console.log(row.personName);
+  });
+}
+
+function getCatAgeFromDataBase(dataBase) {
+  dataBase.each("SELECT * FROM Clients", function (error, row) {
+    if (error) return console.log(error.message);
+    console.log(row.catAge);
+  });
 }
 //------------------------------------------------------------------------------
 // DECLARATIONS OF FUNCTIONS
@@ -58,13 +85,14 @@ function createDataBaseTable(dataBase) {
 // INITIALIZING THE LISTEN ON PORT WITH EXPRESS APP
 //------------------------------------------------------------------------------
 app.listen(port, () => {
-  console.log("My project app listening on port 8000!");
+  console.log("The API is now listening on port 8000 on localhost!");
 });
 //------------------------------------------------------------------------------
 // SERVICES FOR GET HTTP METHOD REQUESTS
 //------------------------------------------------------------------------------
 app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname + "/index.html"));
+  response.sendStatus(200);
 });
 //------------------------------------------------------------------------------
 // SERVICES FOR POST HTTP METHOD REQUESTS
@@ -78,4 +106,7 @@ app.post("/", (request, response) => {
   let dataBase = openDataBaseConnection();
   createDataBaseTable(dataBase);
   insertIntoDataBaseTable(dataBase, newObjectData);
+  response.sendStatus(200);
+  // close connection to dataBase if necessary
+  // closeDataBaseConnection();
 });
