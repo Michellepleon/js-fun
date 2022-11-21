@@ -92,7 +92,6 @@ app.listen(port, () => {
 //------------------------------------------------------------------------------
 app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname + "/index.html"));
-  response.sendStatus(200);
 });
 //------------------------------------------------------------------------------
 // SERVICES FOR POST HTTP METHOD REQUESTS
