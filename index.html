@@ -21,6 +21,7 @@
     const breakLine1 = document.createElement("br");
     const breakLine2 = document.createElement("br");
     const buttonCreateForm = document.createElement("button");
+    const buttonCreateFormRegister = document.createElement("button");
     const sectionForm = document.createElement("section");
     const form = document.createElement("form");
     const formLabel = document.createElement("label");
@@ -39,6 +40,7 @@
     document.body.appendChild(grumpyCatWithHat);
     document.body.appendChild(breakLine1);
     document.body.appendChild(buttonCreateForm);
+    document.body.appendChild(buttonCreateFormRegister);
     document.body.appendChild(headerTextForm);
     document.body.appendChild(sectionForm);
     //--------------------------------------------------------------------------
@@ -48,7 +50,8 @@
     mainTitle.innerHTML = "Grumpy Life";
     paragraphIntroduction.innerHTML =
       "Let's get <b>grumpy</b> with us! Bring <b>grumpyness</b> in your family and make your life worth living!";
-    buttonCreateForm.innerHTML = "Subscribe!";
+    buttonCreateForm.innerHTML = "Be Grumpy!";
+    buttonCreateFormRegister.innerHTML = "Register"
     textCatName.innerHTML = "What is your cat's name?";
     textPersonName.innerHTML = "What is your name?";
     textCatAge.innerHTML = "How old is your cat";
@@ -62,6 +65,7 @@
     grumpyCatWithHat.style.height = "320px";
     grumpyCatWithHat.style.borderRadius = "20px";
     buttonCreateForm.style.backgroundColor = "cyan";
+    buttonCreateFormRegister.style.backgroundColor ="purple";
     //--------------------------------------------------------------------------
     // FUNCTIONS DECLARATIONS
     //--------------------------------------------------------------------------
