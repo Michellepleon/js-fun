@@ -57,11 +57,11 @@ function getIdFromDataBase(dataBase) {
   });
 }
 
-function getCatNameFromDataBase(dataBase) {
-  dataBase.each("SELECT * FROM Clients", function (error, row) {
-    if (error) return console.log(error.message);
-    console.log(row.catName);
-  });
+function getCatNameFromDataBaseAndRequest(dataBase, requestData) {
+  return dataBase.run(
+    `SELECT catName FROM Clients WHERE catName LIKE '?%'`,
+    requestData
+  );
 }
 
 function getPersonNameFromDataBase(dataBase) {
@@ -77,6 +77,10 @@ function getCatAgeFromDataBase(dataBase) {
     console.log(row.catAge);
   });
 }
+
+let dataBase = openDataBaseConnection();
+let catNames = getCatNameFromDataBase(dataBase);
+console.log("My cat names in my dataBase are:", catNames);
 //------------------------------------------------------------------------------
 // DECLARATIONS OF FUNCTIONS
 //------------------------------------------------------------------------------
@@ -93,6 +97,14 @@ app.listen(port, () => {
 app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname + "/index.html"));
 });
+
+app.get("/search-cat-name", (request, response) => {
+  let newStringData = request.body;
+  let dataBase = openDataBaseConnection();
+  let result = getCatNameFromDataBaseAndRequest(dataBase, newStringData);
+  response.send(result);
+  closeDataBaseConnection(dataBase);
+});
 //------------------------------------------------------------------------------
 // SERVICES FOR POST HTTP METHOD REQUESTS
 //------------------------------------------------------------------------------
@@ -107,5 +119,5 @@ app.post("/", (request, response) => {
   insertIntoDataBaseTable(dataBase, newObjectData);
   response.sendStatus(200);
   // close connection to dataBase if necessary
-  // closeDataBaseConnection();
+  closeDataBaseConnection(dataBase);
 });
