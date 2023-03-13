@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h2>Welcome to the Grumpu Life</h2>
+    <p>Please complete the formulaire to join the party!!</p>
+    <form>
+      <div class="container">
+        <label for="username"><strong>Enter Username</strong></label>
+        <input
+          type="text"
+          placeholder="Grumpy Parent"
+          name="username"
+          required
+        />
+        <br />
+        <label for="password"><strong>Password</strong></label>
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+        <br />
+        <label for="telephonenumber"><strong>Tel. Number</strong></label>
+        <input
+          type="tel"
+          placeholder="000-00-00-000"
+          name="telephone num"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}"
+          required
+        />
+        <br />
+
+        <label for="email">Enter your email:</label>
+        <input
+          type="email"
+          placeholder="@email.com"
+          id="email"
+          name="email"
+        />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <script>
+      function getFormRegisterInputs() {
+        const inputFormRegister = document.getElementsByTagName("input");
+        let inputsFormRegisterValue = {
+          userName: "",
+          password: "",
+          telephone: "",
+          email: "",
+        };
+        function validPhone(input_str){
+           let regexPhone = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+
+           return regexPhone.test
+        }
+
+      }
+    </script>
+  </body>
+</html>
